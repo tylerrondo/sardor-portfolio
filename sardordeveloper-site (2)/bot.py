@@ -206,14 +206,16 @@ def server_error(e):
 # ISHGA TUSHIRISH
 # ============================================================
 if __name__ == '__main__':
+    port = int(os.environ.get('PORT', 5000))
+
     print("=" * 60)
     print("Sardor Portfolio Backend")
     print("=" * 60)
     print(f"Bot Token: {BOT_TOKEN[:25]}...")
     print(f"Chat ID:   {CHAT_ID}")
-    print(f"Server:    http://127.0.0.1:5000")
+    print(f"Server:    http://0.0.0.0:{port}")
     print("=" * 60)
     print("Server ishga tushdi!")
     print("To'xtatish uchun Ctrl+C bosing.\n")
 
-    app.run(host='0.0.0.0', port=5000, debug=False)
+    app.run(host='0.0.0.0', port=port, debug=False)
