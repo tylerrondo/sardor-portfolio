@@ -4,6 +4,13 @@
 
 Sardor O'ktamov portfolio sayti uchun backend serveri va admin paneli.
 
+## Last Update
+
+- Updated: 2026-10-18
+- Added particle animation
+- Improved cursor effects
+- Enhanced contact form
+
 ## Xususiyatlar
 
 ✅ **Responsive sayt** - HTML/CSS/JS bilan to'liq moslashuvchan
