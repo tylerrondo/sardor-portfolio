@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sardor O‘ktamov — 3D model va veb-saytlar</title>
+<meta name="description" content="Sardor O‘ktamov: freelance dasturchi va 3D model yasovchi.">
+<meta name="theme-color" content="#09090a">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23121213'/%3E%3Cpath d='M32 25V5M37 27l14-14M39 32h20M37 37l14 14M32 39v20M27 37L13 51M25 32H5M27 27L13 13' stroke='%23ff5a3c' stroke-width='4' stroke-linecap='round' fill='none'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&family=Mulish:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  color-scheme:dark;
+  --bg:#09090a; --panel:#141415; --panel2:#1b1b1d; --ink:#f2f2f2; --muted:#9b9b9f;
+  --line:#2a2a2d; --accent:#ff3d22; --accent-dim:#5a1710; --accent-ink:#ffffff;
+  --display:"Orbitron","Arial Black",sans-serif; --body:"Mulish","Segoe UI",Arial,sans-serif;
+}
+html{scroll-behavior:smooth;scroll-padding-top:90px;-webkit-text-size-adjust:100%}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.65;overflow-x:clip}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+button{font:inherit;color:inherit;cursor:pointer}
+a{color:inherit}
+.wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+h1,h2,h3{font-family:var(--display);margin:0;line-height:1.2}
+em{font-style:normal;color:var(--accent)}
+
+.nav{position:sticky;top:12px;z-index:20;margin:12px auto 0;max-width:1100px;display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 24px;background:rgba(20,20,21,.85);backdrop-filter:blur(10px);border:1px solid var(--line);border-radius:28px;transition:all .45s cubic-bezier(.2,.8,.2,1)}
+.nav:hover{transform:translateY(-4px) scale(1.012);border-color:rgba(255,61,34,.55);background:rgba(24,24,26,.92);box-shadow:0 18px 40px rgba(0,0,0,.55),0 0 32px rgba(255,61,34,.18)}
+.logo{font-family:var(--display);font-weight:700;font-size:clamp(14px,2.4vw,20px);color:var(--accent);text-decoration:none;white-space:nowrap;flex-shrink:0;transition:all .3s}
+.logo:hover{text-shadow:0 0 18px rgba(255,61,34,.7);transform:translateY(-1px)}
+.nav nav{display:flex;gap:22px;font-size:14px;flex:1;justify-content:center;min-width:0}
+.nav nav a{position:relative;text-decoration:none;white-space:nowrap;color:var(--ink);padding:6px 0;font-weight:500;transition:all .25s}
+.nav nav a::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2px;background:var(--accent);border-radius:2px;transform:scaleX(0);transform-origin:right;transition:transform .35s;box-shadow:0 0 10px rgba(255,61,34,.6)}
+.nav nav a:hover{color:var(--accent);transform:translateY(-2px);text-shadow:0 0 12px rgba(255,61,34,.55)}
+.nav nav a:hover::after{transform:scaleX(1);transform-origin:left}
+.burger{display:none;flex:none;width:44px;height:44px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);position:relative;transition:all .3s}
+.burger:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(255,61,34,.35);transform:scale(1.05)}
+.burger span{position:absolute;left:12px;right:12px;height:2px;background:var(--ink);border-radius:2px;transition:all .3s}
+.burger span:nth-child(1){top:15px}.burger span:nth-child(2){top:21px}.burger span:nth-child(3){top:27px}
+.burger[aria-expanded="true"] span:nth-child(1){top:21px;transform:rotate(45deg)}
+.burger[aria-expanded="true"] span:nth-child(2){opacity:0}
+.burger[aria-expanded="true"] span:nth-child(3){top:21px;transform:rotate(-45deg)}
+
+.lang{display:flex;gap:4px;padding:4px;background:var(--panel2);border:1px solid var(--line);border-radius:999px;flex-shrink:0;margin-left:auto;transition:all .3s}
+.lang:hover{border-color:var(--accent);box-shadow:0 0 22px rgba(255,61,34,.3)}
+.lang button{border:0;background:transparent;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700;color:var(--muted);transition:all .3s}
+.lang button:hover{color:var(--ink);background:rgba(255,61,34,.15);transform:translateY(-2px)}
+.lang button[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);box-shadow:0 0 14px rgba(255,61,34,.5)}
+
+.nav .logo{order:1}.nav nav{order:2}.lang{order:3}.burger{order:4}
+
+@media (max-width:900px){
+  .burger{display:block;order:4;margin-left:8px}
+  .nav{flex-wrap:wrap;gap:10px}
+  .lang{order:3;margin-left:auto}
+  .nav nav{display:none;width:100%;flex-direction:column;gap:0;padding-top:8px;order:5;flex:none}
+  .nav nav.open{display:flex}
+  .nav nav a{padding:14px 4px;border-top:1px solid var(--line);font-size:16px}
+  .nav nav a::after{display:none}
+}
+@media (max-width:760px){.nav{margin:12px 12px 0;padding:12px 18px}.nav:hover{transform:none}}
+
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:40px;align-items:center;padding:60px 0}
+.hero small{font-family:var(--display);font-size:14px}
+.hero h1{font-size:clamp(30px,5.2vw,52px);color:var(--accent);margin:10px 0 18px}
+.hero p{color:var(--muted);max-width:42ch;margin:0 0 26px}
+.stats{display:flex;gap:12px;margin-bottom:28px}
+.stat{flex:1;max-width:130px;background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 8px;text-align:center;transition:all .3s}
+.stat b{display:block;font-family:var(--display);font-size:24px;color:var(--accent)}
+.stat span{display:block;font-size:12px;color:var(--muted)}
+.stat:hover{transform:translateY(-6px);border-color:var(--accent);box-shadow:0 12px 30px rgba(255,61,34,.3)}
+.video-rolk{position:relative;width:min(100%,340px);aspect-ratio:9/16;margin:0 auto;border:1px solid var(--accent-dim);border-radius:26px;padding:8px;background:var(--panel);box-shadow:0 0 50px rgba(255,61,34,.15);transition:all .4s}
+.video-rolk:hover{border-color:var(--accent);box-shadow:0 0 90px rgba(255,61,34,.4);transform:scale(1.02)}
+.video-rolk video{width:100%;height:100%;border-radius:18px;object-fit:cover;display:block;background:#1b0d0c}
+.video-rolk .badge{position:absolute;background:rgba(40,28,28,.92);border:1px solid var(--accent-dim);border-radius:10px;padding:8px 14px;font-size:13px;font-weight:700;box-shadow:0 8px 20px rgba(0,0,0,.5);transition:transform .4s;z-index:3}
+.badge.a{top:24px;left:-24px}.badge.b{bottom:24px;right:-24px;background:#8a4a52}
+
+.btn{display:inline-block;background:var(--accent);color:var(--accent-ink);padding:12px 26px;border:0;border-radius:999px;font-weight:700;text-decoration:none;box-shadow:0 0 22px rgba(255,61,34,.35);transition:all .25s;cursor:pointer;font-size:15px}
+.btn:hover{box-shadow:0 10px 34px rgba(255,61,34,.6),0 0 0 4px rgba(255,61,34,.2);transform:translateY(-2px)}
+.btn:active{transform:scale(.95)}
+.btn:disabled{opacity:.6;cursor:wait;transform:none}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--accent);box-shadow:none;margin-left:8px}
+.btn.ghost:hover{color:#fff;box-shadow:0 8px 28px rgba(255,61,34,.4)}
+.btn.full{width:100%;text-align:center}
+
+section{padding:60px 0}
+.title{text-align:center;font-size:clamp(24px,4vw,34px);margin-bottom:36px}
+
+.projects{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+@media (min-width:900px){.projects{grid-template-columns:repeat(3,1fr)}}
+.proj{display:block;text-decoration:none;background:var(--panel);border:1px solid var(--line);border-radius:10px;overflow:hidden;transition:all .3s;cursor:pointer;position:relative}
+.proj:hover{border-color:var(--accent);box-shadow:0 0 26px rgba(255,61,34,.3),0 12px 40px rgba(0,0,0,.4);transform:translateY(-6px)}
+.proj .top{height:160px;display:grid;place-items:center;background:linear-gradient(135deg,#2a1210,#0f0f10);font-family:var(--display);font-size:44px;color:var(--accent-dim);-webkit-text-stroke:1px var(--accent);position:relative;overflow:hidden;transition:all .3s}
+.proj:hover .top{color:rgba(255,61,34,.35);-webkit-text-stroke:1.5px var(--accent)}
+.proj .top img{width:100%;height:100%;object-fit:cover;position:absolute;inset:0}
+.proj .body{padding:20px 22px 24px}
+.proj h3{font-size:19px;margin-bottom:8px;transition:color .3s}
+.proj:hover h3{color:var(--accent)}
+.proj p{margin:0 0 14px;color:var(--muted);font-size:14.5px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin:0;padding:0;list-style:none}
+.tags li{background:var(--accent-dim);color:#ff6a52;border:1px solid #7a2218;border-radius:999px;padding:2px 14px;font-size:13px}
+.proj .arrow{position:absolute;top:16px;right:16px;width:36px;height:36px;border-radius:50%;background:rgba(255,61,34,.9);color:#fff;display:grid;place-items:center;font-size:16px;opacity:0;transform:translate(6px,-6px);transition:all .3s;pointer-events:none;z-index:2}
+.proj:hover .arrow{opacity:1;transform:translate(0,0)}
+
+.cv-section{display:grid;grid-template-columns:1fr 1.4fr;gap:44px;align-items:start}
+.cv-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px;position:sticky;top:100px}
+.cv-avatar{width:120px;height:120px;border-radius:50%;background:linear-gradient(135deg,#ff3d22,#7a1a12);margin:0 auto 16px;display:grid;place-items:center;font-family:var(--display);font-size:40px;color:#fff;border:3px solid var(--accent-dim)}
+.cv-card h3{text-align:center;font-size:20px;margin-bottom:4px}
+.cv-card .role{text-align:center;color:var(--muted);font-size:14px;margin-bottom:20px}
+.cv-info{display:flex;flex-direction:column;gap:10px;margin-bottom:20px}
+.cv-info div{display:flex;gap:10px;font-size:14px;color:var(--muted)}
+.cv-info strong{color:var(--ink);min-width:80px}
+.cv-content h2{font-size:22px;margin:24px 0 14px;color:var(--accent)}
+.cv-content h2:first-child{margin-top:0}
+.cv-item{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 20px;margin-bottom:12px;transition:all .3s}
+.cv-item:hover{border-color:var(--accent);box-shadow:0 0 20px rgba(255,61,34,.2)}
+.cv-item h4{margin:0 0 4px;font-family:var(--display);font-size:15px}
+.cv-item .date{color:var(--muted);font-size:13px;margin-bottom:6px}
+.cv-item p{margin:0;color:var(--muted);font-size:14px}
+
+.activity-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px}
+.activity{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;transition:all .25s}
+.activity:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:0 12px 30px rgba(255,61,34,.2)}
+.activity .icon{width:44px;height:44px;border-radius:10px;background:var(--accent);display:grid;place-items:center;font-family:var(--display);font-size:16px;font-weight:700;margin-bottom:12px}
+.activity h4{font-size:16px;margin-bottom:6px}
+.activity p{margin:0;color:var(--muted);font-size:14px}
+
+.contact{background:var(--panel);padding:60px 0}
+.contact .grid{display:grid;grid-template-columns:1.1fr 1fr;gap:44px}
+.contact h2{font-size:clamp(26px,4vw,34px);margin-bottom:14px}
+.contact p.lead{color:var(--muted);margin:0 0 22px}
+.box{display:block;background:#4a130e;border-radius:8px;padding:14px 18px;margin-bottom:12px;text-decoration:none;transition:all .3s;border:1px solid transparent}
+a.box:hover{background:#6a1c14;transform:translateX(8px);box-shadow:-5px 0 0 var(--accent),0 8px 26px rgba(255,61,34,.25)}
+.box b{display:block;font-family:var(--display);font-size:15px}
+.box span{font-size:13px;color:#ff8a77}
+.contact-form{display:flex;flex-direction:column;gap:12px}
+.contact-form input,.contact-form textarea{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;color:var(--ink);font-family:inherit;font-size:15px;transition:all .3s}
+.contact-form input:focus,.contact-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 20px rgba(255,61,34,.25)}
+.contact-form textarea{resize:vertical;min-height:100px}
+.form-status{min-height:22px;font-size:14px;margin:0}
+.form-status.ok{color:#86efac}
+.form-status.err{color:#fca5a5}
+.hp{position:absolute!important;left:-9999px!important;width:1px;height:1px;opacity:0}
+
+.socials{display:flex;gap:12px;flex-wrap:wrap;margin-top:14px}
+.social{width:52px;height:52px;border-radius:50%;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;color:var(--muted);text-decoration:none;transition:all .35s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden}
+.social svg{width:22px;height:22px;fill:currentColor;transition:transform .35s cubic-bezier(.2,.8,.2,1),fill .3s;z-index:1}
+.social:hover{transform:translateY(-6px) scale(1.08);border-color:var(--accent);color:var(--accent);box-shadow:0 12px 30px rgba(255,61,34,.35),0 0 0 4px rgba(255,61,34,.15);background:var(--panel)}
+.social:hover svg{transform:scale(1.15) rotate(-6deg)}
+.social::before{content:"";position:absolute;inset:0;border-radius:50%;background:radial-gradient(circle,rgba(255,61,34,.25),transparent 70%);opacity:0;transition:opacity .35s}
+.social:hover::before{opacity:1}
+.social.github:hover{color:#fff;border-color:#fff;box-shadow:0 12px 30px rgba(255,255,255,.25),0 0 0 4px rgba(255,255,255,.1)}
+.social.github:hover svg{fill:#fff}
+.social.instagram:hover{color:#e1306c;border-color:#e1306c;box-shadow:0 12px 30px rgba(225,48,108,.4),0 0 0 4px rgba(225,48,108,.15)}
+.social.instagram:hover svg{fill:#e1306c}
+.social.youtube:hover{color:#ff0000;border-color:#ff0000;box-shadow:0 12px 30px rgba(255,0,0,.4),0 0 0 4px rgba(255,0,0,.15)}
+.social.youtube:hover svg{fill:#ff0000}
+.social.tiktok:hover{color:#fff;border-color:#25f4ee;box-shadow:0 12px 30px rgba(37,244,238,.4),0 0 0 4px rgba(37,244,238,.15)}
+.social.tiktok:hover svg{fill:#fff}
+.social.tiktok:hover::after{content:"";position:absolute;inset:0;border-radius:50%;background:linear-gradient(135deg,rgba(37,244,238,.2),rgba(254,44,85,.2));pointer-events:none}
+.socials-title{font-family:var(--display);font-size:13px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:24px 0 12px;font-weight:600}
+footer .socials{justify-content:center;margin:20px 0 14px}
+footer .social{width:44px;height:44px}
+footer .social svg{width:18px;height:18px}
+
+.admin-overlay{position:fixed;inset:0;background:rgba(0,0,0,.92);backdrop-filter:blur(8px);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto}
+.admin-overlay.open{display:flex}
+.admin-panel{background:var(--panel);border:1px solid var(--line);border-radius:18px;max-width:900px;width:100%;padding:32px;margin:auto;animation:pop .3s;position:relative}
+.admin-panel h2{color:var(--accent);margin-bottom:6px;font-size:24px}
+.admin-panel .sub{color:var(--muted);font-size:14px;margin-bottom:22px}
+.admin-close{position:absolute;top:16px;right:16px;width:38px;height:38px;border-radius:50%;border:1px solid var(--line);background:var(--panel2);color:var(--ink);font-size:18px;transition:all .3s}
+.admin-close:hover{background:var(--accent);border-color:var(--accent);transform:rotate(90deg)}
+.admin-form{display:flex;flex-direction:column;gap:12px;margin-bottom:20px}
+.admin-form input,.admin-form textarea,.admin-form select{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:12px 14px;color:var(--ink);font-family:inherit;font-size:14px;transition:all .3s;width:100%}
+.admin-form input:focus,.admin-form textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 18px rgba(255,61,34,.25)}
+.admin-form textarea{resize:vertical;min-height:80px}
+.admin-form label{font-size:13px;color:var(--muted);margin-bottom:-6px;font-weight:600}
+.admin-tabs{display:flex;gap:8px;margin-bottom:20px;border-bottom:1px solid var(--line);padding-bottom:10px;flex-wrap:wrap}
+.admin-tabs button{background:transparent;border:0;color:var(--muted);padding:8px 16px;border-radius:8px;font-size:14px;font-weight:600;transition:all .3s}
+.admin-tabs button.active{background:var(--accent);color:var(--accent-ink)}
+.admin-tabs button:hover:not(.active){color:var(--ink);background:var(--panel2)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+.admin-list{display:flex;flex-direction:column;gap:10px;margin-top:20px;max-height:400px;overflow-y:auto;padding-right:4px}
+.admin-item{display:flex;justify-content:space-between;align-items:center;background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px 16px;gap:12px;transition:all .3s}
+.admin-item:hover{border-color:var(--accent)}
+.admin-item-info{flex:1;min-width:0}
+.admin-item b{font-size:14px;display:block;margin-bottom:2px}
+.admin-item small{color:var(--muted);font-size:12px;word-break:break-all;display:block}
+.admin-item-actions{display:flex;gap:6px;flex-shrink:0}
+.admin-item .edit{background:#1e3a5f;border:0;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;transition:all .3s;cursor:pointer}
+.admin-item .edit:hover{background:#2563eb;transform:scale(1.05)}
+.admin-item .del{background:#7a1a12;border:0;color:#fff;border-radius:8px;padding:6px 12px;font-size:12px;transition:all .3s;cursor:pointer}
+.admin-item .del:hover{background:var(--accent);transform:scale(1.05)}
+.flash{padding:12px 16px;border-radius:10px;margin-bottom:16px;font-size:14px;animation:pop .3s}
+.flash.success{background:rgba(34,197,94,.15);border:1px solid #22c55e;color:#86efac}
+.flash.error{background:rgba(239,68,68,.15);border:1px solid #ef4444;color:#fca5a5}
+.admin-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px}
+.admin-stat{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+.admin-stat b{display:block;font-family:var(--display);font-size:26px;color:var(--accent)}
+.admin-stat span{font-size:12px;color:var(--muted)}
+.preview-card{background:var(--panel2);border:1px solid var(--line);border-radius:10px;padding:14px;margin-top:8px}
+.preview-card small{color:var(--muted);font-size:12px;display:block;margin-bottom:6px}
+.preview-card .preview-content{font-size:13px;color:var(--ink)}
+
+footer{padding:26px 0 40px;color:var(--muted);font-size:14px;text-align:center}
+footer .admin-link{background:transparent;border:1px solid var(--line);color:var(--muted);padding:8px 18px;border-radius:8px;font-size:13px;margin-top:12px;transition:all .3s;cursor:pointer}
+footer .admin-link:hover{border-color:var(--accent);color:var(--accent);box-shadow:0 0 15px rgba(255,61,34,.3)}
+
+@keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
+
+@media (max-width:900px){
+  .hero,.cv-section,.contact .grid{grid-template-columns:1fr;gap:32px}
+  .cv-card{position:static}
+  .video-rolk, .readymag-card-wrap, .lanyard-container{order:-1;margin-top:20px}
+}
+@media (max-width:760px){
+  section{padding:48px 0}
+  .hero{padding:36px 0}
+  .admin-panel{padding:22px 18px}
+  .admin-item{flex-direction:column;align-items:flex-start}
+  .admin-item-actions{width:100%}
+  .admin-item-actions button{flex:1}
+}
+@media (max-width:480px){
+  .wrap{padding:0 16px}
+  .stats{gap:8px}
+  .stat{padding:10px 4px}
+  .stat b{font-size:20px}
+  .hero .btn{display:block;width:100%;text-align:center}
+  .hero .btn.ghost{margin-left:0;margin-top:10px}
+  .badge.a{left:8px}
+  .badge.b{right:8px}
+}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <a class="logo" href="#bosh" data-i18n="logo">Sardor O‘ktamov</a>
+  <nav>
+    <a href="#bosh" data-i18n="nav_home">Bosh sahifa</a>
+    <a href="#portfolio" data-i18n="nav_work">Ishlar</a>
+    <a href="#faoliyat" data-i18n="nav_activity">Faoliyat</a>
+    <a href="#cv" data-i18n="nav_cv">CV</a>
+    <a href="#aloqa" data-i18n="nav_contact">Aloqa</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Til / Language">
+    <button data-lang="uz" aria-pressed="true">UZ</button>
+    <button data-lang="en" aria-pressed="false">EN</button>
+  </div>
+  <button class="burger" id="burger" aria-label="Menyu" aria-expanded="false"><span></span><span></span><span></span></button>
+</header>
+
+<main>
+
+<div class="wrap">
+  <div class="hero" id="bosh">
+    <div>
+      <small data-i18n="hero_welcome">Xush kelibsiz</small>
+      <h1 data-i18n="hero_title">Salom, men Sardor</h1>
+      <p data-i18n="hero_desc">Men 3D model yasayman va veb-saytlar qilaman. Loyihani boshidan oxirigacha o‘zim olib boraman.</p>
+      <div class="stats">
+        <div class="stat"><b data-i18n="stat_3d">3D</b><span data-i18n="stat_3d_label">Asosiy yo‘nalish</span></div>
+        <div class="stat"><b data-i18n="stat_web">Veb</b><span data-i18n="stat_web_label">Qo‘shimcha</span></div>
+        <div class="stat"><b data-i18n="stat_lang">3</b><span data-i18n="stat_lang_label">Tilda ishlayman</span></div>
+      </div>
+      <a class="btn" href="#portfolio" data-i18n="btn_works">Ishlarni ko‘rish →</a>
+      <a class="btn ghost" href="#cv" data-i18n="btn_cv">CV yuklab olish</a>
+    </div>
+    <div class="video-rolk">
+      <video autoplay muted loop playsinline>
+        <source src="sardor.mp4" type="video/mp4">
+      </video>
+      <span class="badge a" data-i18n="badge_reel">10s rolk</span>
+      <span class="badge b" data-i18n="badge_3dweb">3D + Veb</span>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+  <section id="portfolio">
+    <h2 class="title" data-i18n="portfolio_title">Qilingan ishlar</h2>
+    <div class="projects" id="projectsGrid"></div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="faoliyat">
+    <h2 class="title" data-i18n="activity_title">Faoliyatlarim</h2>
+    <div class="activity-grid">
+      <div class="activity"><div class="icon">3D</div><h4 data-i18n="act1_title">3D Modellashtirish</h4><p data-i18n="act1_desc">Unreal Engine va Blender'da 3D modellar yasash, render qilish.</p></div>
+      <div class="activity"><div class="icon">&lt;/&gt;</div><h4 data-i18n="act2_title">Veb-saytlar</h4><p data-i18n="act2_desc">HTML, CSS, JavaScript, Python/Flask asosida saytlar qurish.</p></div>
+      <div class="activity"><div class="icon">▶</div><h4 data-i18n="act3_title">Render & Avtomatlashtirish</h4><p data-i18n="act3_desc">Python skriptlar orqali ko'p renderlarni avtomatlashtirish.</p></div>
+      <div class="activity"><div class="icon">✓</div><h4 data-i18n="act4_title">Loyiha boshqaruvi</h4><p data-i18n="act4_desc">G'oyadan tayyor mahsulotgacha to'liq nazorat.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap">
+  <section id="cv">
+    <h2 class="title" data-i18n="cv_title">CV — Tarjimai hol</h2>
+    <div class="cv-section">
+      <div class="cv-card">
+        <div class="cv-avatar">S</div>
+        <h3>Sardor O'ktamov</h3>
+        <p class="role" data-i18n="cv_role">3D Modeler & Full-Stack Developer</p>
+        <div class="cv-info">
+          <div><strong data-i18n="cv_location">📍 Manzil:</strong> <span data-i18n="cv_location_val">Toshkent</span></div>
+          <div><strong data-i18n="cv_email">📧 Email:</strong> sardor@example.uz</div>
+          <div><strong data-i18n="cv_phone">📱 Tel:</strong> +998 90 123 45 67</div>
+          <div><strong data-i18n="cv_langs">🌐 Tillar:</strong> <span data-i18n="cv_langs_val">O'zbek, Rus, Ingliz</span></div>
+        </div>
+        <button class="btn full" id="downloadCV" data-i18n="cv_download">📄 PDF yuklab olish</button>
+        <a class="btn full" href="./SardorOktamov.apk" download style="margin-top:10px;background:#1e3a5f;box-shadow:0 0 22px rgba(30,58,95,.35)">
+          📱 APK yuklab olish
+        </a>
+      </div>
+      <div class="cv-content">
+        <h2 data-i18n="cv_edu">🎓 Ta'lim</h2>
+        <div class="cv-item"><h4 data-i18n="cv_edu1">IT Park — Dasturlash kurslari</h4><div class="date">2022 — 2023</div><p data-i18n="cv_edu1_desc">Python, JavaScript, veb-dasturlash asoslari</p></div>
+        <div class="cv-item"><h4 data-i18n="cv_edu2">O'zbekiston Milliy Universiteti</h4><div class="date">2018 — 2022</div><p data-i18n="cv_edu2_desc">Kompyuter ilmlari yo'nalishi</p></div>
+        <h2 data-i18n="cv_exp">💼 Tajriba</h2>
+        <div class="cv-item"><h4 data-i18n="cv_exp1">Freelance Dasturchi</h4><div class="date">2022 — hozir</div><p data-i18n="cv_exp1_desc">3D modellar, veb-saytlar, avtomatlashtirish (Kwork, Upwork)</p></div>
+        <h2 data-i18n="cv_skills">🛠 Ko'nikmalar</h2>
+        <div class="cv-item"><h4 data-i18n="cv_skills_title">Texnologiyalar</h4>
+          <ul class="tags" style="margin-top:8px">
+            <li>Python</li><li>JavaScript</li><li>TypeScript</li>
+            <li>Flask</li><li>Unreal Engine</li><li>Blender</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<section id="aloqa" class="contact">
+  <div class="wrap grid">
+    <div>
+      <h2 data-i18n="contact_title">Aloqa</h2>
+      <p class="lead" data-i18n="contact_lead">Loyihangiz bormi? Yozing, tez orada javob beraman.</p>
+      <a class="box" href="https://t.me/" target="_blank" rel="noopener"><b data-i18n="contact_tg">Telegram</b><span>@sardor_oktamov</span></a>
+      <a class="box" href="mailto:sardor@example.uz"><b data-i18n="contact_email">Email</b><span>sardor@example.uz</span></a>
+      <div class="box" style="cursor:default"><b data-i18n="contact_addr">Manzil</b><span data-i18n="contact_addr_val">Toshkent, O'zbekiston</span></div>
+
+      <h3 class="socials-title" data-i18n="socials_title">Ijtimoiy tarmoqlar</h3>
+      <div class="socials">
+        <a class="social github" href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.66.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+        </a>
+        <a class="social instagram" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38c-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+        </a>
+        <a class="social youtube" href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+        </a>
+        <a class="social tiktok" href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52v-3.45a4.85 4.85 0 0 1-1.84-.04z"/></svg>
+        </a>
+      </div>
+    </div>
+    <div>
+      <h2 style="margin-bottom:14px" data-i18n="contact_send">Xabar yuborish</h2>
+      <form class="contact-form" id="contactForm" novalidate>
+        <input type="text" name="name" placeholder="Ismingiz" required maxlength="100" autocomplete="name" data-i18n-placeholder="form_name">
+        <input type="text" name="phone" placeholder="Telefon yoki email" required maxlength="100" autocomplete="off" data-i18n-placeholder="form_phone">
+        <textarea name="message" placeholder="Loyihangiz haqida yozing..." required maxlength="2000" data-i18n-placeholder="form_msg"></textarea>
+        <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+        <button type="submit" class="btn full" id="formBtn" data-i18n="form_submit">Xabar yuborish</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="socials">
+    <a class="social github" href="https://github.com/" target="_blank" rel="noopener" aria-label="GitHub">
+      <svg viewBox="0 0 24 24"><path d="M12 .5C5.65.5.5 5.65.5 12c0 5.08 3.29 9.39 7.86 10.91.58.11.79-.25.79-.56v-2c-3.2.7-3.87-1.36-3.87-1.36-.52-1.32-1.27-1.67-1.27-1.67-1.04-.71.08-.7.08-.7 1.15.08 1.76 1.18 1.76 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.74.4-1.24.72-1.53-2.55-.29-5.23-1.28-5.23-5.68 0-1.25.45-2.28 1.18-3.08-.12-.29-.51-1.46.11-3.05 0 0 .96-.31 3.15 1.18a10.9 10.9 0 0 1 5.74 0c2.18-1.49 3.14-1.18 3.14-1.18.63 1.59.24 2.76.12 3.05.74.8 1.18 1.83 1.18 3.08 0 4.41-2.69 5.38-5.25 5.66.41.35.78 1.05.78 2.12v3.14c0 .31.21.68.8.56A11.5 11.5 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/></svg>
+    </a>
+    <a class="social instagram" href="https://instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23a3.7 3.7 0 0 1-.9 1.38c-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41a3.7 3.7 0 0 1-1.38-.9 3.7 3.7 0 0 1-.9-1.38c-.16-.42-.36-1.06-.41-2.23C2.17 15.58 2.16 15.2 2.16 12s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16M12 0C8.74 0 8.33.01 7.05.07 5.78.13 4.9.33 4.14.63c-.79.3-1.46.72-2.13 1.38C1.35 2.68.93 3.35.63 4.14.33 4.9.13 5.78.07 7.05.01 8.33 0 8.74 0 12s.01 3.67.07 4.95c.06 1.27.26 2.15.56 2.91.3.79.72 1.46 1.38 2.13.67.67 1.34 1.08 2.13 1.38.76.3 1.64.5 2.91.56C8.33 23.99 8.74 24 12 24s3.67-.01 4.95-.07c1.27-.06 2.15-.26 2.91-.56.79-.3 1.46-.72 2.13-1.38.67-.67 1.08-1.34 1.38-2.13.3-.76.5-1.64.56-2.91.06-1.28.07-1.69.07-4.95s-.01-3.67-.07-4.95c-.06-1.27-.26-2.15-.56-2.91-.3-.79-.72-1.46-1.38-2.13C21.32 1.35 20.65.93 19.86.63c-.76-.3-1.64-.5-2.91-.56C15.67.01 15.26 0 12 0z"/><path d="M12 5.84a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8z"/><circle cx="18.41" cy="5.59" r="1.44"/></svg>
+    </a>
+    <a class="social youtube" href="https://youtube.com/" target="_blank" rel="noopener" aria-label="YouTube">
+      <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.51A3.02 3.02 0 0 0 .5 6.2C0 8.08 0 12 0 12s0 3.92.5 5.8a3.02 3.02 0 0 0 2.12 2.14c1.88.51 9.38.51 9.38.51s7.5 0 9.38-.51a3.02 3.02 0 0 0 2.12-2.14C24 15.92 24 12 24 12s0-3.92-.5-5.8zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>
+    </a>
+    <a class="social tiktok" href="https://tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+      <svg viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5.8 20.1a6.34 6.34 0 0 0 10.86-4.43V8.66a8.16 8.16 0 0 0 4.77 1.52v-3.45a4.85 4.85 0 0 1-1.84-.04z"/></svg>
+    </a>
+  </div>
+  <div data-i18n="footer">© 2026 Sardor O‘ktamov — Barcha huquqlar himoyalangan</div>
+  <button class="admin-link" id="openAdmin" data-i18n="admin_open">🔒 Admin panel</button>
+</footer>
+
+<div class="admin-overlay" id="adminOverlay">
+  <div class="admin-panel">
+    <button class="admin-close" id="closeAdmin">✕</button>
+    <div id="adminLogin">
+      <h2>🔒 Admin kirish</h2>
+      <p class="sub">Faqat administrator uchun</p>
+      <div id="loginFlash"></div>
+      <form class="admin-form" id="loginForm">
+        <label>Login</label>
+        <input type="text" id="adminUser" placeholder="Login" required autocomplete="username">
+        <label>Parol</label>
+        <input type="password" id="adminPass" placeholder="Parol" required autocomplete="current-password">
+        <button type="submit" class="btn full">Kirish</button>
+      </form>
+      <p style="font-size:12px;color:var(--muted);text-align:center;margin-top:16px">Demo: <b>sardor</b> / <b>sardor2026</b></p>
+    </div>
+    <div id="adminDash" style="display:none">
+      <h2>⚙️ Admin panel</h2>
+      <p class="sub">Loyihalarni boshqarish va sozlamalar</p>
+      <div class="admin-stats">
+        <div class="admin-stat"><b id="statProjects">0</b><span>Loyihalar</span></div>
+        <div class="admin-stat"><b id="statMessages">0</b><span>Xabarlar</span></div>
+        <div class="admin-stat"><b id="statViews">0</b><span>Ko'rishlar</span></div>
+      </div>
+      <div class="admin-tabs">
+        <button class="active" data-tab="add">➕ Qo'shish</button>
+        <button data-tab="list">📋 Loyihalar</button>
+        <button data-tab="messages">💬 Xabarlar</button>
+        <button data-tab="pass">🔑 Parol</button>
+        <button data-tab="settings">⚙️ Sozlama</button>
+      </div>
+      <div class="tab-content active" data-tab="add">
+        <div id="addFlash"></div>
+        <form class="admin-form" id="addForm">
+          <input type="hidden" id="editId" value="">
+          <label>Loyiha nomi *</label>
+          <input type="text" id="pTitle" placeholder="Masalan: Apple" required>
+          <label>Tavsif *</label>
+          <textarea id="pDesc" placeholder="Loyiha haqida qisqacha..." required></textarea>
+          <label>Texnologiyalar</label>
+          <input type="text" id="pTech" placeholder="Minimalist, Typography, Animation">
+          <label>Rasm URL</label>
+          <input type="url" id="pImg" placeholder="https://example.com/image.jpg">
+          <label>🔗 Havola *</label>
+          <input type="url" id="pLink" placeholder="https://www.apple.com" required>
+          <div class="preview-card" id="previewCard" style="display:none">
+            <small>Ko'rinishi:</small>
+            <div class="preview-content" id="previewContent"></div>
+          </div>
+          <button type="submit" class="btn full" id="submitBtn">➕ Qo'shish</button>
+          <button type="button" class="btn ghost full" id="cancelEdit" style="display:none;margin:0">Bekor qilish</button>
+        </form>
+      </div>
+      <div class="tab-content" data-tab="list"><div class="admin-list" id="adminList"></div></div>
+      <div class="tab-content" data-tab="messages"><div class="admin-list" id="messagesList"></div></div>
+      <div class="tab-content" data-tab="pass">
+        <div id="passFlash"></div>
+        <form class="admin-form" id="passForm">
+          <label>Eski parol</label>
+          <input type="password" id="oldPass" required>
+          <label>Yangi parol (kamida 4 belgi)</label>
+          <input type="password" id="newPass" required>
+          <label>Yangi parolni takrorlang</label>
+          <input type="password" id="confirmPass" required>
+          <button type="submit" class="btn full">🔑 O'zgartirish</button>
+        </form>
+      </div>
+      <div class="tab-content" data-tab="settings">
+        <div id="settingsFlash"></div>
+        <h3 style="color:var(--accent);margin-bottom:12px;font-size:16px">📊 Ma'lumotlar</h3>
+        <div class="admin-form">
+          <button type="button" class="btn ghost full" id="exportData" style="margin:0">📥 JSON yuklab olish</button>
+          <button type="button" class="btn ghost full" id="importData" style="margin:0">📤 JSON dan yuklash</button>
+          <input type="file" id="importFile" accept=".json" style="display:none">
+          <button type="button" class="btn full" id="resetData" style="background:#7a1a12;margin:0">🗑 Hammasini o'chirish</button>
+        </div>
+      </div>
+      <button class="btn ghost" id="adminLogout" style="margin-top:20px;margin-left:0">🚪 Chiqish</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   ⚙️ FLASK BACKEND MANZILI
+   Local: 'http://127.0.0.1:5000/api/contact'
+   Server: 'https://sizning-server.com/api/contact'
+   ============================================================ */
+const CONTACT_API = 'http://127.0.0.1:5000/api/contact';
+
+/* ============================================================
+   TARJIMA (i18n)
+   ============================================================ */
+const I18N = {
+  uz: {
+    logo: "Sardor O‘ktamov",
+    nav_home: "Bosh sahifa", nav_work: "Ishlar", nav_activity: "Faoliyat", nav_cv: "CV", nav_contact: "Aloqa",
+    hero_welcome: "Xush kelibsiz",
+    hero_title: "Salom, men Sardor",
+    hero_desc: "Men 3D model yasayman va veb-saytlar qilaman. Loyihani boshidan oxirigacha o‘zim olib boraman.",
+    stat_3d_label: "Asosiy yo‘nalish", stat_web_label: "Qo‘shimcha", stat_lang_label: "Tilda ishlayman",
+    btn_works: "Ishlarni ko‘rish →", btn_cv: "CV yuklab olish",
+    badge_reel: "10s rolk", badge_3dweb: "3D + Veb",
+    portfolio_title: "Qilingan ishlar",
+    activity_title: "Faoliyatlarim",
+    act1_title: "3D Modellashtirish", act1_desc: "Unreal Engine va Blender'da 3D modellar yasash, render qilish.",
+    act2_title: "Veb-saytlar", act2_desc: "HTML, CSS, JavaScript, Python/Flask asosida saytlar qurish.",
+    act3_title: "Render & Avtomatlashtirish", act3_desc: "Python skriptlar orqali ko'p renderlarni avtomatlashtirish.",
+    act4_title: "Loyiha boshqaruvi", act4_desc: "G'oyadan tayyor mahsulotgacha to'liq nazorat.",
+    cv_title: "CV — Tarjimai hol",
+    cv_role: "3D Modeler & Full-Stack Developer",
+    cv_location: "📍 Manzil:", cv_location_val: "Toshkent",
+    cv_email: "📧 Email:", cv_phone: "📱 Tel:",
+    cv_langs: "🌐 Tillar:", cv_langs_val: "O'zbek, Rus, Ingliz",
+    cv_download: "📄 PDF yuklab olish",
+    cv_edu: "🎓 Ta'lim", cv_edu1: "IT Park — Dasturlash kurslari", cv_edu1_desc: "Python, JavaScript, veb-dasturlash asoslari",
+    cv_edu2: "O'zbekiston Milliy Universiteti", cv_edu2_desc: "Kompyuter ilmlari yo'nalishi",
+    cv_exp: "💼 Tajriba", cv_exp1: "Freelance Dasturchi", cv_exp1_desc: "3D modellar, veb-saytlar, avtomatlashtirish (Kwork, Upwork)",
+    cv_skills: "🛠 Ko'nikmalar", cv_skills_title: "Texnologiyalar",
+    contact_title: "Aloqa", contact_lead: "Loyihangiz bormi? Yozing, tez orada javob beraman.",
+    contact_tg: "Telegram", contact_email: "Email", contact_addr: "Manzil", contact_addr_val: "Toshkent, O'zbekiston",
+    contact_send: "Xabar yuborish",
+    form_name: "Ismingiz", form_phone: "Telefon yoki email", form_msg: "Loyihangiz haqida yozing...", form_submit: "Xabar yuborish",
+    form_sending: "Yuborilmoqda...",
+    form_ok: "✅ Xabaringiz yuborildi! Tez orada javob beraman.",
+    form_fill: "❌ Iltimos, barcha maydonlarni to'ldiring.",
+    form_wait: "❌ Iltimos, biroz kutib turing va qayta urinib ko'ring.",
+    form_err: "❌ Yuborib bo'lmadi. Keyinroq urinib ko'ring yoki Telegram orqali yozing.",
+    socials_title: "Ijtimoiy tarmoqlar",
+    footer: "© 2026 Sardor O‘ktamov — Barcha huquqlar himoyalangan",
+    admin_open: "🔒 Admin panel"
+  },
+  en: {
+    logo: "Sardor O'ktamov",
+    nav_home: "Home", nav_work: "Work", nav_activity: "Activity", nav_cv: "CV", nav_contact: "Contact",
+    hero_welcome: "Welcome",
+    hero_title: "Hi, I'm Sardor",
+    hero_desc: "I build 3D models and websites. I take every project from start to finish myself.",
+    stat_3d_label: "Main focus", stat_web_label: "Also offer", stat_lang_label: "Languages I work in",
+    btn_works: "See my work →", btn_cv: "Download CV",
+    badge_reel: "10s reel", badge_3dweb: "3D + Web",
+    portfolio_title: "Completed works",
+    activity_title: "My activities",
+    act1_title: "3D Modeling", act1_desc: "Creating and rendering 3D models in Unreal Engine and Blender.",
+    act2_title: "Websites", act2_desc: "Building websites with HTML, CSS, JavaScript, Python/Flask.",
+    act3_title: "Rendering & Automation", act3_desc: "Automating bulk renders with Python scripts.",
+    act4_title: "Project management", act4_desc: "Full control from idea to finished product.",
+    cv_title: "CV — Resume",
+    cv_role: "3D Modeler & Full-Stack Developer",
+    cv_location: "📍 Location:", cv_location_val: "Tashkent",
+    cv_email: "📧 Email:", cv_phone: "📱 Phone:",
+    cv_langs: "🌐 Languages:", cv_langs_val: "Uzbek, Russian, English",
+    cv_download: "📄 Download PDF",
+    cv_edu: "🎓 Education", cv_edu1: "IT Park — Programming courses", cv_edu1_desc: "Python, JavaScript, web development basics",
+    cv_edu2: "National University of Uzbekistan", cv_edu2_desc: "Computer Science",
+    cv_exp: "💼 Experience", cv_exp1: "Freelance Developer", cv_exp1_desc: "3D models, websites, automation (Kwork, Upwork)",
+    cv_skills: "🛠 Skills", cv_skills_title: "Technologies",
+    contact_title: "Contact", contact_lead: "Got a project? Write to me, I'll reply soon.",
+    contact_tg: "Telegram", contact_email: "Email", contact_addr: "Address", contact_addr_val: "Tashkent, Uzbekistan",
+    contact_send: "Send message",
+    form_name: "Your name", form_phone: "Phone or email", form_msg: "Tell me about your project...", form_submit: "Send message",
+    form_sending: "Sending...",
+    form_ok: "✅ Message sent! I will reply soon.",
+    form_fill: "❌ Please fill in all fields.",
+    form_wait: "❌ Please wait a moment and try again.",
+    form_err: "❌ Could not send. Please try again later or write me on Telegram.",
+    socials_title: "Social networks",
+    footer: "© 2026 Sardor O'ktamov — All rights reserved",
+    admin_open: "🔒 Admin panel"
+  }
+};
+
+let currentLang = 'uz';
+const t = (key) => I18N[currentLang][key] || key;
+
+function setLang(lang){
+  currentLang = lang;
+  const dict = I18N[lang];
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const key = el.getAttribute('data-i18n');
+    if(dict[key] !== undefined) el.textContent = dict[key];
+  });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const key = el.getAttribute('data-i18n-placeholder');
+    if(dict[key] !== undefined) el.placeholder = dict[key];
+  });
+  document.querySelectorAll('.lang button').forEach(b=>{
+    b.setAttribute('aria-pressed', b.dataset.lang === lang);
+  });
+  document.documentElement.lang = lang;
+  try { localStorage.setItem('sardor_lang', lang); } catch(e){}
+  if(typeof renderProjects === 'function') renderProjects();
+}
+
+document.querySelectorAll('.lang button').forEach(b=>{
+  b.addEventListener('click', ()=> setLang(b.dataset.lang));
+});
+
+const esc = (s) => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+const DATA_VERSION = 'v5';
+const VERSION_KEY = 'sardor_version';
+if(localStorage.getItem(VERSION_KEY) !== DATA_VERSION){
+  localStorage.removeItem('sardor_projects');
+  localStorage.removeItem('sardor_messages');
+  localStorage.removeItem('sardor_views');
+  localStorage.setItem(VERSION_KEY, DATA_VERSION);
+}
+
+const ADMIN_KEY = 'sardor_admin_pass';
+const PROJECTS_KEY = 'sardor_projects';
+const MESSAGES_KEY = 'sardor_messages';
+const VIEWS_KEY = 'sardor_views';
+
+if(!localStorage.getItem(ADMIN_KEY)) localStorage.setItem(ADMIN_KEY, 'sardor2026');
+if(!localStorage.getItem(VIEWS_KEY)) localStorage.setItem(VIEWS_KEY, '0');
+
+if(!localStorage.getItem(PROJECTS_KEY)){
+  const defaultProjects = [
+    {id:1, title:'Apple', desc:"Dunyodagi eng chiroyli va minimalist dizayndagi texnologiya sayti.", tech:'Minimalist, Typography, Animation', img:'', link:'https://www.apple.com', created:Date.now()-6000},
+    {id:2, title:'Airbnb', desc:"Zamonaviy dizayndagi sayohat va uy-joy ijarasi platformasi.", tech:'UX, Cards, Photography', img:'', link:'https://www.airbnb.com', created:Date.now()-5000},
+    {id:3, title:'Stripe', desc:"Dasturchilar uchun to'lov tizimi. Gradientlar va animatsiyalar.", tech:'Gradient, Motion, Clean UI', img:'', link:'https://stripe.com', created:Date.now()-4000},
+    {id:4, title:'Tesla', desc:"Elektromobil kompaniyasi sayti. Parallax va premium dizayn.", tech:'Parallax, Fullscreen, Premium', img:'', link:'https://www.tesla.com', created:Date.now()-3000},
+    {id:5, title:'Nike', desc:"Sport brendining rasmiy sayti. Kuchli typography va video.", tech:'Bold Typography, Video', img:'', link:'https://www.nike.com', created:Date.now()-2000},
+    {id:6, title:'Spotify', desc:"Musiqa striming platformasi. To'q dizayn va gradientlar.", tech:'Dark Mode, Gradient, Cards', img:'', link:'https://www.spotify.com', created:Date.now()-1000}
+  ];
+  localStorage.setItem(PROJECTS_KEY, JSON.stringify(defaultProjects));
+}
+
+const getProjects = () => JSON.parse(localStorage.getItem(PROJECTS_KEY) || '[]');
+const saveProjects = (p) => localStorage.setItem(PROJECTS_KEY, JSON.stringify(p));
+const getMessages = () => JSON.parse(localStorage.getItem(MESSAGES_KEY) || '[]');
+const saveMessages = (m) => localStorage.setItem(MESSAGES_KEY, JSON.stringify(m));
+const getAdminPass = () => localStorage.getItem(ADMIN_KEY);
+const setAdminPass = (p) => localStorage.setItem(ADMIN_KEY, p);
+const getViews = () => parseInt(localStorage.getItem(VIEWS_KEY) || '0');
+const incViews = () => localStorage.setItem(VIEWS_KEY, getViews() + 1);
+
+function renderProjects(){
+  const grid = document.getElementById('projectsGrid');
+  const projects = getProjects().sort((a,b)=>b.created-a.created);
+  if(projects.length === 0){
+    grid.innerHTML = '<p style="text-align:center;color:var(--muted);grid-column:1/-1">...</p>';
+    return;
+  }
+  grid.innerHTML = projects.map(p => {
+    const techTags = (p.tech||'').split(',').filter(x=>x.trim()).map(x=>`<li>${esc(x.trim())}</li>`).join('');
+    const imgHtml = p.img ? `<img src="${esc(p.img)}" alt="${esc(p.title)}" onerror="this.style.display='none'">` : esc(p.title.slice(0,2).toUpperCase());
+    const tag = p.link ? 'a' : 'div';
+    const attrs = p.link ? `href="${esc(p.link)}" target="_blank" rel="noopener noreferrer"` : '';
+    return `<${tag} class="proj" ${attrs}><span class="arrow">↗</span><div class="top">${imgHtml}</div><div class="body"><h3>${esc(p.title)}</h3><p>${esc(p.desc)}</p><ul class="tags">${techTags}</ul></div></${tag}>`;
+  }).join('');
+}
+
+const adminOverlay = document.getElementById('adminOverlay');
+const adminLogin = document.getElementById('adminLogin');
+const adminDash = document.getElementById('adminDash');
+
+document.getElementById('openAdmin').addEventListener('click', ()=>{
+  adminOverlay.classList.add('open');
+  if(sessionStorage.getItem('sardor_logged_in') === 'yes') showDashboard();
+  else { adminLogin.style.display = 'block'; adminDash.style.display = 'none'; }
+});
+document.getElementById('closeAdmin').addEventListener('click', ()=> adminOverlay.classList.remove('open'));
+adminOverlay.addEventListener('click', (e)=>{ if(e.target === adminOverlay) adminOverlay.classList.remove('open'); });
+document.addEventListener('keydown', (e)=>{ if(e.key === 'Escape') adminOverlay.classList.remove('open'); });
+
+function showDashboard(){
+  adminLogin.style.display = 'none';
+  adminDash.style.display = 'block';
+  updateStats();
+  renderAdminList();
+  renderMessages();
+}
+function updateStats(){
+  document.getElementById('statProjects').textContent = getProjects().length;
+  document.getElementById('statMessages').textContent = getMessages().length;
+  document.getElementById('statViews').textContent = getViews();
+}
+
+document.getElementById('loginForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const user = document.getElementById('adminUser').value.trim();
+  const pass = document.getElementById('adminPass').value;
+  const flash = document.getElementById('loginFlash');
+  if(user === 'sardor' && pass === getAdminPass()){
+    sessionStorage.setItem('sardor_logged_in', 'yes');
+    flash.innerHTML = '';
+    showDashboard();
+  } else {
+    flash.innerHTML = '<div class="flash error">❌ Login yoki parol xato!</div>';
+  }
+});
+
+document.getElementById('adminLogout').addEventListener('click', ()=>{
+  sessionStorage.removeItem('sardor_logged_in');
+  adminLogin.style.display = 'block';
+  adminDash.style.display = 'none';
+  document.getElementById('adminUser').value = '';
+  document.getElementById('adminPass').value = '';
+  document.getElementById('loginFlash').innerHTML = '';
+});
+
+document.querySelectorAll('.admin-tabs button').forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));
+    btn.classList.add('active');
+    document.querySelector(`.tab-content[data-tab="${btn.dataset.tab}"]`).classList.add('active');
+  });
+});
+
+document.getElementById('addForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const flash = document.getElementById('addFlash');
+  const editId = document.getElementById('editId').value;
+  const projectData = {
+    title: document.getElementById('pTitle').value.trim(),
+    desc: document.getElementById('pDesc').value.trim(),
+    tech: document.getElementById('pTech').value.trim(),
+    img: document.getElementById('pImg').value.trim(),
+    link: document.getElementById('pLink').value.trim()
+  };
+  if(!projectData.title || !projectData.desc || !projectData.link){
+    flash.innerHTML = '<div class="flash error">❌ Nom, tavsif va havola majburiy!</div>';
+    return;
+  }
+  let projects = getProjects();
+  if(editId){
+    const idx = projects.findIndex(p => p.id == editId);
+    if(idx !== -1){ projects[idx] = {...projects[idx], ...projectData}; flash.innerHTML = '<div class="flash success">✅ Loyiha yangilandi!</div>'; }
+    resetForm();
+  } else {
+    projects.push({id: Date.now(), ...projectData, created: Date.now()});
+    flash.innerHTML = '<div class="flash success">✅ Loyiha qo\'shildi!</div>';
+    e.target.reset();
+  }
+  saveProjects(projects);
+  renderAdminList();
+  renderProjects();
+  updateStats();
+  setTimeout(()=> flash.innerHTML = '', 2500);
+});
+
+function resetForm(){
+  document.getElementById('addForm').reset();
+  document.getElementById('editId').value = '';
+  document.getElementById('submitBtn').textContent = '➕ Qo\'shish';
+  document.getElementById('cancelEdit').style.display = 'none';
+  document.getElementById('previewCard').style.display = 'none';
+}
+document.getElementById('cancelEdit').addEventListener('click', resetForm);
+
+function renderAdminList(){
+  const list = document.getElementById('adminList');
+  const projects = getProjects().sort((a,b)=>b.created-a.created);
+  if(projects.length === 0){ list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px">Loyihalar yo\'q</p>'; return; }
+  list.innerHTML = projects.map(p => `
+    <div class="admin-item">
+      <div class="admin-item-info"><b>${esc(p.title)}</b><small>${esc(p.link || 'Havola yo\'q')}</small></div>
+      <div class="admin-item-actions">
+        <button class="edit" onclick="editProject(${p.id})">✏️</button>
+        <button class="del" onclick="deleteProject(${p.id})">🗑</button>
+      </div>
+    </div>
+  `).join('');
+}
+
+window.editProject = function(id){
+  const p = getProjects().find(x => x.id === id);
+  if(!p) return;
+  document.getElementById('editId').value = id;
+  document.getElementById('pTitle').value = p.title;
+  document.getElementById('pDesc').value = p.desc;
+  document.getElementById('pTech').value = p.tech || '';
+  document.getElementById('pImg').value = p.img || '';
+  document.getElementById('pLink').value = p.link || '';
+  document.getElementById('submitBtn').textContent = '💾 Saqlash';
+  document.getElementById('cancelEdit').style.display = 'block';
+  document.querySelectorAll('.admin-tabs button').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(tc=>tc.classList.remove('active'));
+  document.querySelector('.admin-tabs button[data-tab="add"]').classList.add('active');
+  document.querySelector('.tab-content[data-tab="add"]').classList.add('active');
+  window.scrollTo({top: 0, behavior: 'smooth'});
+};
+
+window.deleteProject = function(id){
+  if(!confirm('Loyihani o\'chirishni tasdiqlaysizmi?')) return;
+  saveProjects(getProjects().filter(p => p.id !== id));
+  renderAdminList();
+  renderProjects();
+  updateStats();
+};
+
+function renderMessages(){
+  const list = document.getElementById('messagesList');
+  const messages = getMessages().sort((a,b)=>b.date-a.date);
+  if(messages.length === 0){ list.innerHTML = '<p style="color:var(--muted);text-align:center;padding:20px">Xabarlar yo\'q</p>'; return; }
+  list.innerHTML = messages.map(m => `
+    <div class="admin-item">
+      <div class="admin-item-info">
+        <b>${esc(m.name)}</b>
+        <small>📱 ${esc(m.phone)}</small>
+        <small style="margin-top:6px;color:var(--ink)">💬 ${esc(m.message)}</small>
+        <small style="margin-top:4px">🕐 ${new Date(m.date).toLocaleString('uz-UZ')}</small>
+      </div>
+      <div class="admin-item-actions"><button class="del" onclick="deleteMessage(${m.date})">🗑</button></div>
+    </div>
+  `).join('');
+}
+
+window.deleteMessage = function(date){
+  if(!confirm('Xabarni o\'chirishni tasdiqlaysizmi?')) return;
+  saveMessages(getMessages().filter(m => m.date !== date));
+  renderMessages();
+  updateStats();
+};
+
+document.getElementById('passForm').addEventListener('submit', (e)=>{
+  e.preventDefault();
+  const flash = document.getElementById('passFlash');
+  const oldP = document.getElementById('oldPass').value;
+  const newP = document.getElementById('newPass').value;
+  const confP = document.getElementById('confirmPass').value;
+  if(oldP !== getAdminPass()){ flash.innerHTML = '<div class="flash error">❌ Eski parol xato!</div>'; return; }
+  if(newP.length < 4){ flash.innerHTML = '<div class="flash error">❌ Yangi parol kamida 4 belgi!</div>'; return; }
+  if(newP !== confP){ flash.innerHTML = '<div class="flash error">❌ Parollar mos emas!</div>'; return; }
+  setAdminPass(newP);
+  flash.innerHTML = '<div class="flash success">✅ Parol o\'zgartirildi!</div>';
+  e.target.reset();
+  setTimeout(()=> flash.innerHTML = '', 2500);
+});
+
+document.getElementById('exportData').addEventListener('click', ()=>{
+  const data = { projects: getProjects(), messages: getMessages(), views: getViews(), exported: new Date().toISOString() };
+  const blob = new Blob([JSON.stringify(data, null, 2)], {type:'application/json'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = `sardor-backup-${Date.now()}.json`; a.click();
+  URL.revokeObjectURL(url);
+  const flash = document.getElementById('settingsFlash');
+  flash.innerHTML = '<div class="flash success">✅ Backup yuklab olindi!</div>';
+  setTimeout(()=> flash.innerHTML = '', 2500);
+});
+
+document.getElementById('importData').addEventListener('click', ()=> document.getElementById('importFile').click());
+document.getElementById('importFile').addEventListener('change', (e)=>{
+  const file = e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev)=>{
+    try {
+      const data = JSON.parse(ev.target.result);
+      if(data.projects) saveProjects(data.projects);
+      if(data.messages) saveMessages(data.messages);
+      if(data.views !== undefined) localStorage.setItem(VIEWS_KEY, data.views);
+      const flash = document.getElementById('settingsFlash');
+      flash.innerHTML = '<div class="flash success">✅ Ma\'lumotlar yuklandi!</div>';
+      renderAdminList(); renderMessages(); renderProjects(); updateStats();
+      setTimeout(()=> flash.innerHTML = '', 2500);
+    } catch(err){
+      document.getElementById('settingsFlash').innerHTML = '<div class="flash error">❌ Fayl xato!</div>';
+    }
+  };
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+document.getElementById('resetData').addEventListener('click', ()=>{
+  if(!confirm('⚠️ HAMMASINI o\'chirishni tasdiqlaysizmi?')) return;
+  if(!confirm('⚠️ IKKINCHI TASDIQLASH: Rostdan ham?')) return;
+  localStorage.removeItem(PROJECTS_KEY);
+  localStorage.removeItem(MESSAGES_KEY);
+  localStorage.setItem(VIEWS_KEY, '0');
+  location.reload();
+});
+
+/* ============================================================
+   ✉️ ALOQA FORMASI → TELEGRAM BOT
+   ============================================================ */
+document.getElementById('contactForm').addEventListener('submit', async (e)=>{
+  e.preventDefault();
+  const form = e.target;
+  const btn = document.getElementById('formBtn');
+  const status = document.getElementById('formStatus');
+
+  const payload = {
+    name: form.name.value.trim(),
+    phone: form.phone.value.trim(),
+    message: form.message.value.trim(),
+    website: form.website.value
+  };
+
+  status.className = 'form-status';
+
+  if(!payload.name || !payload.phone || !payload.message){
+    status.textContent = t('form_fill');
+    status.classList.add('err');
+    return;
+  }
+
+  btn.disabled = true;
+  status.textContent = t('form_sending');
+
+  try {
+    const res = await fetch(CONTACT_API, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(payload)
+    });
+
+    if(res.status === 429){
+      status.textContent = t('form_wait');
+      status.classList.add('err');
+      return;
+    }
+
+    const data = await res.json().catch(()=> ({}));
+    if(!res.ok || !data.ok) throw new Error(data.error || 'send_failed');
+
+    const msgs = getMessages();
+    msgs.push({ name: payload.name, phone: payload.phone, message: payload.message, date: Date.now() });
+    saveMessages(msgs);
+    updateStats();
+
+    status.textContent = t('form_ok');
+    status.classList.add('ok');
+    form.reset();
+    setTimeout(()=>{ status.textContent = ''; status.className = 'form-status'; }, 6000);
+  } catch(err){
+    console.error('Xatolik:', err);
+    status.textContent = t('form_err');
+    status.classList.add('err');
+  } finally {
+    btn.disabled = false;
+  }
+});
+
+const burger = document.getElementById('burger');
+const menu = document.querySelector('.nav nav');
+burger.addEventListener('click', ()=>{
+  const open = burger.getAttribute('aria-expanded') === 'true';
+  burger.setAttribute('aria-expanded', !open);
+  menu.classList.toggle('open', !open);
+});
+menu.addEventListener('click', (e)=>{
+  if(e.target.tagName === 'A'){
+    burger.setAttribute('aria-expanded', 'false');
+    menu.classList.remove('open');
+  }
+});
+
+document.getElementById('downloadCV').addEventListener('click', ()=> window.print());
+
+incViews();
+renderProjects();
+
+try {
+  const savedLang = localStorage.getItem('sardor_lang');
+  if(savedLang === 'en' || savedLang === 'uz') setLang(savedLang);
+  else setLang('uz');
+} catch(e){ setLang('uz'); }
+
+/* ============================================================
+   🔊 TUGMALARNI BOSGANDA OVOZ CHIQARISH (WEB AUDIO API)
+   ============================================================ */
+let clickAudioCtx = null;
+let lastSoundTime = 0;
+
+function playButtonSound(type = 'default') {
+  try {
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return;
+    if (!clickAudioCtx) {
+      clickAudioCtx = new AudioCtx();
+    }
+    if (clickAudioCtx.state === 'suspended') {
+      clickAudioCtx.resume();
+    }
+
+    const now = clickAudioCtx.currentTime;
+    const osc = clickAudioCtx.createOscillator();
+    const gain = clickAudioCtx.createGain();
+
+    if (type === 'submit') {
+      // Yuborish / tasdiqlash uchun balandroq va yoqimli ohang
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(520, now);
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.08);
+
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+
+      osc.connect(gain);
+      gain.connect(clickAudioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.08);
+    } else {
+      // Standart tugmalar uchun zamonaviy, mayin cyber-click ovozi
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(650, now);
+      osc.frequency.exponentialRampToValueAtTime(220, now + 0.045);
+
+      gain.gain.setValueAtTime(0.14, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.045);
+
+      osc.connect(gain);
+      gain.connect(clickAudioCtx.destination);
+      osc.start(now);
+      osc.stop(now + 0.045);
+    }
+  } catch (err) {
+    // Brauzer audio cheklovlarida jimlikni saqlash
+  }
+}
+
+function triggerButtonSound(type = 'default') {
+  const now = Date.now();
+  if (now - lastSoundTime < 35) return;
+  lastSoundTime = now;
+  playButtonSound(type);
+}
+
+// Sichqoncha va sensor teginishlar uchun
+document.addEventListener('pointerdown', (e) => {
+  const target = e.target.closest('button, .btn, a, input[type="submit"], input[type="button"], .burger, .lang button, .social, .admin-link, select');
+  if (target) {
+    const isSubmit = target.type === 'submit' || target.id === 'formBtn' || target.classList.contains('full');
+    triggerButtonSound(isSubmit ? 'submit' : 'default');
+  }
+});
+
+// Klaviatura orqali (Enter yoki Probeldan) bosilganda
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const active = document.activeElement;
+    if (active && active.closest('button, .btn, a, input[type="submit"], input[type="button"]')) {
+      const isSubmit = active.type === 'submit' || active.id === 'formBtn';
+      triggerButtonSound(isSubmit ? 'submit' : 'default');
+    }
+  }
+});
+</script>
+</body>
+</html>
