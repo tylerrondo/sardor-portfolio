@@ -40,7 +40,7 @@ RATE_MAX    = 10
 # ============================================================
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-key-change-in-production')
-CORS(app, resources={r"/api/*": {"origins": "*"}})
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # ============================================================
 # YORDAMCHI FUNKSIYALAR
