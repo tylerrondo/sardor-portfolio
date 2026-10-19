@@ -1,1 +1,1 @@
-web: python bot.py
+web: python sardordeveloper-site\ \(2\)/bot.py
